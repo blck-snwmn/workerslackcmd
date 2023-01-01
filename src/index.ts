@@ -27,7 +27,7 @@ export default {
 		const token = form.get("token");
 		if (env.TOKEN !== token){
 			// unmatch verification token
-			return new Response("failed to process", {status:500})
+			return new Response("failed to process", {status:400})
 		}
 		const sreq: SlackWebhookRequest = {
 			team_id: form.get("team_id"),
