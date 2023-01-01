@@ -1,9 +1,8 @@
 export interface Env {
-
+	TOKEN: string
 }
 
 interface SlackWebhookRequest {
-	token: string | null;
 	team_id: string | null;
 	team_domain: string | null;
 	channel_id: string | null;
@@ -25,8 +24,12 @@ export default {
 		ctx: ExecutionContext
 	): Promise<Response> {
 		const form = await request.formData();
+		const token = form.get("token");
+		if (env.TOKEN !== token){
+			// unmatch verification token
+			return new Response("failed to process", {status:500})
+		}
 		const sreq: SlackWebhookRequest = {
-			token: form.get("token"),
 			team_id: form.get("team_id"),
 			team_domain: form.get("team_domain"),
 			channel_id: form.get("channel_id"),
