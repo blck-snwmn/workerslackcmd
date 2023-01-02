@@ -25,9 +25,9 @@ export default {
 	): Promise<Response> {
 		const form = await request.formData();
 		const token = form.get("token");
-		if (env.TOKEN !== token){
+		if (env.TOKEN !== token) {
 			// unmatch verification token
-			return new Response("failed to process", {status:400})
+			return new Response("failed to process", { status: 400 })
 		}
 		const sreq: SlackWebhookRequest = {
 			team_id: form.get("team_id"),
