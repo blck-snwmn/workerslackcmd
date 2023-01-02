@@ -44,6 +44,86 @@ export default {
 			trigger_id: form.get("trigger_id"),
 		};
 		console.log(sreq)
-		return new Response("Hello World!");
+		return new Response(JSON.stringify({
+			response_type: "in_channel", // set ephemeral if only user who ran slack cmd can see the post
+			blocks: [
+				{
+					type: "header",
+					text: {
+						type: "plain_text",
+						text: "hello world"
+					}
+				},
+				{
+					type: "section",
+					text: {
+						type: "mrkdwn",
+						text: "this is mrkdwn"
+					}
+				},
+				{
+					type: "section",
+					text: {
+						type: "mrkdwn",
+						text: "this is mrkdwn2"
+					}
+				},
+				{
+					type: "context",
+					elements: [
+						{
+							type: "plain_text",
+							text: "left"
+						},
+						{
+							type: "plain_text",
+							text: "right"
+						}
+					]
+				}
+			],
+			attachments: [
+				{
+					color: "#008000",
+					blocks: [
+						{
+							type: "section",
+							text: {
+								type: "plain_text",
+								text: "this is mrkdwn"
+							}
+						},
+					],
+				},
+				{
+					color: "#ffff00",
+					blocks: [
+						{
+							type: "section",
+							text: {
+								type: "mrkdwn",
+								text: "• a\n• b\n• c"
+							}
+						},
+					],
+				},
+				{
+					color: "#ff0000",
+					blocks: [
+						{
+							type: "section",
+							text: {
+								type: "mrkdwn",
+								text: "this is mrkdwn"
+							}
+						},
+					],
+				}
+			]
+		}), {
+			headers: {
+				"Content-type": "application/json",
+			}
+		});
 	},
 };
